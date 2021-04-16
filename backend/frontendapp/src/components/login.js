@@ -1,68 +1,51 @@
-import React, { Component } from 'react';
+import React, {useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
-import { Container, Divider, Grid, Header, Image } from 'semantic-ui-react'
+import { Container, Button, Checkbox, Form } from 'semantic-ui-react'
+
+import logo from '../../static/img/logo.png'
 import './react.css'
 
-class Login extends Component {
-  static propTypes = {
-    login: PropTypes.func.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
-
-  onSubmit = (e) => {
+const Login = (props) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const errors = {username:'', password:''}
+  const dispatch = useDispatch()
+  const onSubmit = (e) => {
+    console.log(e)
     e.preventDefault();
-    const { username, password } = this.state;
-    const { login } = this.props;
-    login(username, password);
+    dispatch(login(username, password))
   }
-
-  render() {
     return (
-      <Container className="test" textAlign="center">
-    <form onSubmit={this.onSubmit}>
-        <div style={{padding:"25px"}} className="col-md-offset-5 col-md-3">
-          <h4>Blueprint Login</h4>
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control input-sm chat-input"
-              placeholder="username"
-              onChange={e => this.setState({ username: e.target.value })}
-            />
-            <input
-              type="password"
-              className="form-control input-sm chat-input"
-              placeholder="password"
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-          </div>
+      <div className="testBackground" >
+        <div className="loginBox">
+        <Form onSubmit={onSubmit}  inverted>
+          <Form.Input
+            error={username.length === 0 ? 'Please provide username' : null  }
+            fluid
+            label='Username'
+            placeholder='First name'
+            id='form-input-first-name'
+            onChange={e => setUsername(e.target.value)}
+          />
+          <Form.Input
+             error={password.length === 0 ? 'Please provide password' : null  }
+            fluid
+            label='Password'
+            placeholder='Password'
+            id='form-input-password'
+            type='password'
+            onChange={e => setPassword(e.target.value)}
+          />
           <div style={{textAlign:"center"}}>
-          <button type="submit" className="btn btn-primary btn-md">
-            Login
-          </button>
+            <Form.Button primary>Login</Form.Button>
           </div>
+      </Form>
         </div>
-      </form>
-      </Container>
+      </div>
     );
-  }
+  
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (username, password) => {
-      return dispatch(login(username, password));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
