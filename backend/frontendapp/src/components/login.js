@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { Container, Button, Checkbox, Form } from 'semantic-ui-react'
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import logo from '../../static/img/logo.png'
 import './react.css'
 
 const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const errors = {username:'', password:''}
+  const [errors, setErrors] = useState({username:'',password:''})
   const dispatch = useDispatch()
   const onSubmit = (e) => {
     console.log(e)
@@ -20,17 +25,18 @@ const Login = (props) => {
     return (
       <div className="testBackground" >
         <div className="loginBox">
-        <Form onSubmit={onSubmit}  inverted>
+        
+        <Form onSubmit={onSubmit}  inverted size='large' loading={false}>
           <Form.Input
-            error={username.length === 0 ? 'Please provide username' : null  }
+            error={errors.username.length > 0 ? 'Please provide username' : null  }
             fluid
             label='Username'
-            placeholder='First name'
+            placeholder='Username'
             id='form-input-first-name'
             onChange={e => setUsername(e.target.value)}
           />
           <Form.Input
-             error={password.length === 0 ? 'Please provide password' : null  }
+             error={errors.password.length > 0  ? 'Please provide password' : null  }
             fluid
             label='Password'
             placeholder='Password'
