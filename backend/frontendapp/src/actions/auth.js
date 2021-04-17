@@ -1,5 +1,6 @@
 import jQuery from 'jquery';
 
+
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -20,7 +21,7 @@ export function login(username, password) {
   return (dispatch, getState) => {
     const csrftoken = getCookie('csrftoken');
     const authParams = JSON.stringify({ username, password });
-    return fetch('/api/login/', {
+    return fetch('/api/auth/login/', {
       method: 'POST',
       body: authParams,
       headers: {
@@ -43,6 +44,7 @@ export function login(username, password) {
         }
         if (response.status === 200) {
           dispatch({ type: 'LOGIN_SUCCESSFUL', data: response.data });
+
         }
       });
   };

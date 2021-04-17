@@ -1,8 +1,9 @@
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { login } from "../actions/auth"
-import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react'
+import { login } from "../actions/auth";
+import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react';
+import { useHistory } from "react-router-dom";
 import './react.css'
 
 const Login = (props) => {
@@ -10,7 +11,9 @@ const Login = (props) => {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({username:'',password:''})
   const formError = useSelector(state => state.errors)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const history = useHistory()
   const onSubmit = (e) => {
     e.preventDefault();
     if(username === "" && password === ""){
@@ -25,6 +28,12 @@ const Login = (props) => {
     }
     dispatch(login(username, password))
   }
+
+  useEffect(()=>{
+    if(user != null){
+      history.push('/')
+    }
+  },[user])
     return (
       <div className="testBackground" >
         <div className="loginBox">
