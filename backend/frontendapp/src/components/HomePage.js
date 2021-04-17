@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import logo from '../../static/img/logo.png'
 import './react.css'
-import Login from './login';
+import Login from './Login';
 
 const HomePage = (props) => {
   

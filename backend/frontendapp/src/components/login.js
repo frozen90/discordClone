@@ -1,32 +1,35 @@
 import React, {useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
-import { login } from '../actions/auth';
-import { Container, Button, Checkbox, Form } from 'semantic-ui-react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import logo from '../../static/img/logo.png'
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { login } from "../actions/auth"
+import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react'
 import './react.css'
 
 const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({username:'',password:''})
+  const formError = useSelector(state => state.errors)
   const dispatch = useDispatch()
   const onSubmit = (e) => {
-    console.log(e)
     e.preventDefault();
+    if(username === "" && password === ""){
+      setErrors({username:'Please provide username', password:'Please provide password'})
+      return;
+    }else if( username === ""){
+      setErrors({username:'Please provide username', password:''})
+    }else if( password === ""){
+      setErrors({username:'', password:'Please provide password'})
+    }else{
+      setErrors({username:'', password:''})
+    }
     dispatch(login(username, password))
   }
     return (
       <div className="testBackground" >
         <div className="loginBox">
         
-        <Form onSubmit={onSubmit}  inverted size='large' loading={false}>
+        <Form onSubmit={onSubmit}  inverted size='large' warning={true}>
           <Form.Input
             error={errors.username.length > 0 ? 'Please provide username' : null  }
             fluid
@@ -43,6 +46,13 @@ const Login = (props) => {
             id='form-input-password'
             type='password'
             onChange={e => setPassword(e.target.value)}
+          />
+          <Message
+            style={formError === 400 ? null:{display:"none"}}
+            warning
+            header='Invalid Username or Password'
+            content='Try again or click Forgot password to reset it.'
+        
           />
           <div style={{textAlign:"center"}}>
             <Form.Button primary>Login</Form.Button>

@@ -9,8 +9,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Login2 from './login2';
-import Login from './login';
 import Reducer from '../reducers/reducer';
 import HomePage from "./HomePage"
 
