@@ -13,6 +13,8 @@ import {
 import logo from '../../static/img/logo.png'
 import './react.css'
 import Login from './Login';
+import PrivateRoute from '../components/common/PrivateRoute'; 
+import Dashboard from './Dashboard';
 
 const HomePage = (props) => {
   
@@ -20,7 +22,7 @@ const HomePage = (props) => {
       <div>
           <Router>
               <Switch>
-                  <Route exact path='/'><p>This is homepage</p></Route>
+                  <PrivateRoute exact path='/' component={Dashboard}></PrivateRoute>
                   <Route path='/login' component={Login}></Route>
               </Switch>
           </Router>

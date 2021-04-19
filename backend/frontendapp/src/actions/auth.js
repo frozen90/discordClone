@@ -21,7 +21,7 @@ export function login(username, password) {
   return (dispatch, getState) => {
     const csrftoken = getCookie('csrftoken');
     const authParams = JSON.stringify({ username, password });
-    return fetch('/api/auth/login/', {
+    return fetch('/api/auth/login', {
       method: 'POST',
       body: authParams,
       headers: {
