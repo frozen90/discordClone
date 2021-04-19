@@ -1,51 +1,91 @@
-import jQuery from 'jquery';
+
+import axios from 'axios';
+import { 
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_ERRORS,
+  LOGOUT_SUCCESS,
+} from './types'
 
 
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      const cookie = jQuery.trim(cookies[i]);
-      // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+// CHECK TOKEN & LOAD USER
+export const loadUser = () => (dispatch, getState) =>{
+  // User Loading
+  dispatch({ type: USER_LOADING });
+
+  // Get token from state
+  const token = getState().auth.token;
+
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
     }
   }
-  return cookieValue;
+
+  //If token, add to headers config
+  if(token){
+    config.headers['Authorization'] = `Token ${token}`;
+  }
+  console.log("CALLED? ")
+  axios.get('/api/auth/user', config)
+    .then(res =>{
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      })
+    }).catch(err =>{
+      dispatch({type: AUTH_ERROR, data:err.response.data})
+    })
 }
 
-export function login(username, password) {
-  return (dispatch, getState) => {
-    const csrftoken = getCookie('csrftoken');
-    const authParams = JSON.stringify({ username, password });
-    return fetch('/api/auth/login', {
-      method: 'POST',
-      body: authParams,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken,
-      },
-    })
-      .then((response) => {
-        return response.json().then((data) => {
-          return {
-            status: response.status,
-            data,
-          };
-        },
-        );
-      })
-      .then((response) => {
-        if (response.status !== 200) {
-          dispatch({ type: 'LOGIN_ERROR', data: response.status });
-        }
-        if (response.status === 200) {
-          dispatch({ type: 'LOGIN_SUCCESSFUL', data: response.data });
+export const login = (username, password) => (dispatch, getState) =>{
+  // User Loading
+  dispatch({ type: USER_LOADING });
 
-        }
-      });
-  };
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  //Request Body
+  const body = JSON.stringify({username,password})
+  axios.post('/api/auth/login', body, config)
+    .then(res =>{
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      })
+    }).catch(err =>{
+      dispatch({type: LOGIN_FAIL})
+    })
+}
+
+export const logoutUser = () => (dispatch, getState) =>{
+  // Get token from state
+  const token = getState().auth.token;
+
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  //If token, add to headers config
+  if(token){
+    config.headers['Authorization'] = `Token ${token}`;
+  }
+  axios.post('/api/auth/logout',null, config)
+    .then(res =>{
+      dispatch({
+        type: LOGOUT_SUCCESS
+      })
+    }).catch(err =>{
+      dispatch({type: LOGOUT_ERRORS})
+    })
 }

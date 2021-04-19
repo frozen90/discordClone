@@ -1,19 +1,20 @@
 import React, {useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { login } from "../actions/auth";
 import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react';
-import { useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import {login} from "../actions/auth";
 import './react.css'
 
 const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({username:'',password:''})
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const formError = useSelector(state => state.errors)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
-  const history = useHistory()
+
   const onSubmit = (e) => {
     e.preventDefault();
     if(username === "" && password === ""){
@@ -28,12 +29,9 @@ const Login = (props) => {
     }
     dispatch(login(username, password))
   }
-
-  useEffect(()=>{
-    if(user != null){
-      history.push('/')
-    }
-  },[user])
+  if (isAuthenticated){
+    return <Redirect to="/" />;
+  }
     return (
       <div className="testBackground" >
         <div className="loginBox">
@@ -69,6 +67,7 @@ const Login = (props) => {
       </Form>
         </div>
       </div>
+  
     );
   
 }
