@@ -51,6 +51,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+    print(username,password)
 
     def validate(self,data):
         user = authenticate(**data)
