@@ -111,8 +111,8 @@ const DesktopContainer = ({children}) => {
                 <Menu.Item as='a'>Company</Menu.Item>
                 <Menu.Item as='a'>Careers</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' >
-                    Log in
+                  <Button as='a' href="/login">
+                      Log in
                   </Button>
                   <Button as='a' primary={true} style={{ marginLeft: '0.5em' }}>
                     Sign Up
