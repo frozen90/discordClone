@@ -10,11 +10,13 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import logo from '../../static/img/logo.png'
 import './react.css'
+//Components
 import Login from './Login';
 import PrivateRoute from '../components/common/PrivateRoute'; 
 import Dashboard from './Dashboard';
+import Landing from './Landing';
+//Actions
 import { loadUser } from '../actions/auth';
 
 const HomePage = (props) => {
@@ -26,7 +28,7 @@ const HomePage = (props) => {
       <div>
           <Router>
               <Switch>
-                  
+                  <Route exact path='/' component={Landing}></Route>
                   <PrivateRoute path='/dashboard' component={Dashboard}></PrivateRoute>
                   <Route path='/login' component={Login}></Route>
               </Switch>
