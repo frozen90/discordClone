@@ -26,7 +26,8 @@ const HomePage = (props) => {
       <div>
           <Router>
               <Switch>
-                  <PrivateRoute exact path='/' component={Dashboard}></PrivateRoute>
+                  
+                  <PrivateRoute path='/dashboard' component={Dashboard}></PrivateRoute>
                   <Route path='/login' component={Login}></Route>
               </Switch>
           </Router>

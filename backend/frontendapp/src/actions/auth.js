@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+import store from '../store';
 import { 
   USER_LOADED,
   USER_LOADING,
@@ -17,21 +18,8 @@ export const loadUser = () => (dispatch, getState) =>{
   dispatch({ type: USER_LOADING });
 
   // Get token from state
-  const token = getState().auth.token;
-
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-
-  //If token, add to headers config
-  if(token){
-    config.headers['Authorization'] = `Token ${token}`;
-  }
   console.log("CALLED? ")
-  axios.get('/api/auth/user', config)
+  axios.get('/api/auth/user', tokenConfig())
     .then(res =>{
       dispatch({
         type: USER_LOADED,
@@ -65,10 +53,21 @@ export const login = (username, password) => (dispatch, getState) =>{
     })
 }
 
-export const logoutUser = () => (dispatch, getState) =>{
-  // Get token from state
-  const token = getState().auth.token;
+export const logoutUser = () => (dispatch) =>{
 
+  axios.post('/api/auth/logout',null, tokenConfig())
+    .then(res =>{
+      dispatch({
+        type: LOGOUT_SUCCESS
+      })
+    }).catch(err =>{
+      dispatch({type: LOGOUT_ERRORS})
+    })
+}
+
+export const tokenConfig = () => {
+  const token = store.getState().auth.token
+  
   // Headers
   const config = {
     headers: {
@@ -80,12 +79,6 @@ export const logoutUser = () => (dispatch, getState) =>{
   if(token){
     config.headers['Authorization'] = `Token ${token}`;
   }
-  axios.post('/api/auth/logout',null, config)
-    .then(res =>{
-      dispatch({
-        type: LOGOUT_SUCCESS
-      })
-    }).catch(err =>{
-      dispatch({type: LOGOUT_ERRORS})
-    })
+
+  return config
 }
