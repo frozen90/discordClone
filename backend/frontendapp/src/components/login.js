@@ -4,9 +4,14 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react';
 import { Link, Redirect } from "react-router-dom";
 import {login} from "../actions/auth";
-import './react.css'
-
+import './react.css';
+import { motion } from "framer-motion";
+import Loader from "./layout/Loader";
 const Login = (props) => {
+  const formComponent = () =>((
+    <Form.Button style={{width:150}} primary />
+  ))
+  const motionFormButton = motion(formComponent)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({username:'',password:''})
@@ -14,7 +19,17 @@ const Login = (props) => {
   const formError = useSelector(state => state.errors)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
-
+  const btnVariants = {
+    hover: {
+      scale: 1.1,
+      textShadow: "0px 0px 8px rgb(255,255,255)",
+      boxShadow: "0px 0px 8px rgb(255,255,255)",
+      transition:{
+        duration: 0.3,
+        yoyo: Infinity,
+      }
+    }
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     if(username === "" && password === ""){
@@ -32,7 +47,9 @@ const Login = (props) => {
   if (isAuthenticated){
     return <Redirect to="/dashboard" />;
   }
+
     return (
+
       <div className="testBackground" >
         <div className="loginBox">
         
@@ -62,12 +79,13 @@ const Login = (props) => {
         
           />
           <div style={{textAlign:"center"}}>
-            <Form.Button primary>Login</Form.Button>
+
+            <motionFormButton>Login</motionFormButton>
+
           </div>
       </Form>
         </div>
       </div>
-  
     );
   
 }

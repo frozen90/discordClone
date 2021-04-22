@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import store from '../store';
+import { motion } from "framer-motion"
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +16,8 @@ import HomePage from "./HomePage"
 
 ReactDOM.render((
   <Provider store={store}>
-      <HomePage/>
+      <Router>
+       <HomePage/>
+       </Router>
   </Provider>
 ), document.getElementById('react-app'));

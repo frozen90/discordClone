@@ -1,4 +1,10 @@
-
+.loader{
+    width: 25px;
+    height: 25px;
+    margin: 40px auto;
+    border-radius: 50%;
+    background:black;
+}
 .testBackground{
     background-image: url('../../static/img/logo.png');
     height:100vh;

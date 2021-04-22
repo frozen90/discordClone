@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { logout, logoutUser } from '../actions/auth';
 import { Redirect} from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 
 const Dashboard = () =>{
@@ -11,11 +12,23 @@ const Dashboard = () =>{
     const handleLogout = () =>{
         dispatch(logoutUser());
     }
-
+    const loadingContainerVariants = {
+        start: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+        end: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+      }
     return(
         <Sidebar.Pushable as={Segment}>
             <Sidebar
             as={Menu}
+            color="blue"
             animation='push'
             icon='labeled'
             inverted

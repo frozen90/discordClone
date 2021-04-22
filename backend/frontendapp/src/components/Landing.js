@@ -1,6 +1,7 @@
 import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import React, { Component, useState } from 'react'
+import { motion } from "framer-motion"
 import {
   Button,
   Container,
@@ -36,6 +37,9 @@ const { MediaContextProvider, Media } = createMedia({
  * components for such things.
  */
 const HomepageHeading = ({ mobile }) => (
+  <motion.div
+    initial={{y: -250}}
+    animate={{y:0}}>
   <Container text>
     <Header
       as='h1'
@@ -66,6 +70,7 @@ const HomepageHeading = ({ mobile }) => (
       <Icon name='right arrow' />
     </Button>
   </Container>
+  </motion.div>
 )
 
 HomepageHeading.propTypes = {
@@ -85,6 +90,7 @@ const DesktopContainer = ({children}) => {
 
 
     return (
+
       <Media greaterThan='mobile'>
         <Visibility
           once={false}
@@ -97,26 +103,42 @@ const DesktopContainer = ({children}) => {
             vertical
           >
             <Menu
-             
               borderless={true}
-              fixed={fixed ? 'top' : null}
-              secondary={!fixed}
+              fixed='top'
               size='large'
             >
+             
               <Container>
                 <Menu.Item as='a' active>
-                  Home
+                <motion.div initial={{y: -250}} animate={{y:0}}>
+                    Home
+                </motion.div>
                 </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+                <Menu.Item as='a'>
+                  <motion.div initial={{y: -250}} animate={{y:0}}>
+                    Work
+                  </motion.div></Menu.Item>
+                <Menu.Item as='a'>
+                  <motion.div initial={{y: -250}} animate={{y:0}}>
+                    Company
+                  </motion.div>
+                  </Menu.Item>
+                <Menu.Item as='a'>
+                  <motion.div initial={{y: -250}} animate={{y:0}}>
+                    Careers
+                  </motion.div>
+                  </Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' href="/login">
-                      Log in
-                  </Button>
-                  <Button as='a' primary={true} style={{ marginLeft: '0.5em' }}>
-                    Sign Up
-                  </Button>
+                <motion.div
+                  initial={{y: -250}}
+                  animate={{y:0}}>               
+                    <Button as='a' href="/login">
+                        Log in
+                    </Button>
+                    <Button as='a' primary={true} style={{ marginLeft: '0.5em' }}>
+                      Sign Up
+                    </Button> 
+                  </motion.div>                
                 </Menu.Item>
               </Container>
             </Menu>
@@ -219,7 +241,9 @@ const ResponsiveContainer = ({ children }) => (
    * For large applications it may not be best option to put all page into these containers at
    * they will be rendered twice for SSR.
    */
+
   <MediaContextProvider>
+  
     <DesktopContainer>{children}</DesktopContainer>
     <MobileContainer>{children}</MobileContainer>
   </MediaContextProvider>
@@ -230,6 +254,7 @@ ResponsiveContainer.propTypes = {
 }
 
 const Landing = () => (
+ 
   <ResponsiveContainer>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign='middle'>
@@ -255,7 +280,7 @@ const Landing = () => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign='center'>
-            <Button size='huge'>Check Them Out</Button>
+            <Button size='huge'>Check Us Out</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -275,7 +300,7 @@ const Landing = () => (
               "I shouldn't have gone with their competitor."
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
+              <Image avatar src='../static/img/avatar.jpg' />
               <b>Nan</b> Chief Fun Officer Acme Toys
             </p>
           </Grid.Column>
@@ -307,12 +332,11 @@ const Landing = () => (
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Did We Tell You About Our Bananas?
+          Did We Tell You About Our Software?
         </Header>
         <p style={{ fontSize: '1.33em' }}>
           Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-          it's really true. It took years of gene splicing and combinatory DNA research, but our
-          bananas can really dance.
+          it's really true. It will make things simplier.
         </p>
         <Button as='a' size='large'>
           I'm Still Quite Interested
@@ -329,17 +353,12 @@ const Landing = () => (
               <List link inverted>
                 <List.Item as='a'>Sitemap</List.Item>
                 <List.Item as='a'>Contact Us</List.Item>
-                <List.Item as='a'>Religious Ceremonies</List.Item>
-                <List.Item as='a'>Gazebo Plans</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={3}>
               <Header inverted as='h4' content='Services' />
               <List link inverted>
-                <List.Item as='a'>Banana Pre-Order</List.Item>
-                <List.Item as='a'>DNA FAQ</List.Item>
-                <List.Item as='a'>How To Access</List.Item>
-                <List.Item as='a'>Favorite X-Men</List.Item>
+                <List.Item as='a'>FAQ</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={7}>
@@ -355,6 +374,7 @@ const Landing = () => (
       </Container>
     </Segment>
   </ResponsiveContainer>
+
 )
 
 export default Landing;
