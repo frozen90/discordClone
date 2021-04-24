@@ -1,7 +1,8 @@
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializer import UserSerializer, RegisterSerializer, LoginSerializer
+from .models import Staff
+from .serializer import UserSerializer, RegisterSerializer, LoginSerializer, StaffSerializer
 
 #Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -38,3 +39,13 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+#Get Staff Members
+class StaffAPI(generics.RetrieveAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+    def get(self, request, *args, **kwargs):
+        staff = Staff.objects.all()
+        serializer_class = StaffSerializer(staff, many=True)
+        return Response({'rows':serializer_class.data, 'total':staff.count()})

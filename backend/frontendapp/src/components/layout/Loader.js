@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 
-const Loader = () => {
+const LoaderBall = () => {
 
     return(
 
@@ -16,4 +16,4 @@ const Loader = () => {
     )
 }
 
-export default Loader;
+export default LoaderBall;

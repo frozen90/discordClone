@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Container, Button, Checkbox, Form, Message } from 'semantic-ui-react';
@@ -7,14 +7,13 @@ import {login} from "../actions/auth";
 import './react.css';
 import { motion } from "framer-motion";
 import Loader from "./layout/Loader";
+import { compose } from 'redux';
+
 const Login = (props) => {
-  const formComponent = () =>((
-    <Form.Button style={{width:150}} primary />
-  ))
-  const motionFormButton = motion(formComponent)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({username:'',password:''})
+  const [loadingDashboard, setLoadingDashboard] = useState(false)
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const formError = useSelector(state => state.errors)
   const user = useSelector(state => state.user)
@@ -44,13 +43,15 @@ const Login = (props) => {
     }
     dispatch(login(username, password))
   }
+ 
   if (isAuthenticated){
+    
     return <Redirect to="/dashboard" />;
   }
 
     return (
 
-      <div className="testBackground" >
+      <motion.div className="testBackground" initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}}>
         <div className="loginBox">
         
         <Form onSubmit={onSubmit}  inverted size='large' warning={true}>
@@ -80,12 +81,12 @@ const Login = (props) => {
           />
           <div style={{textAlign:"center"}}>
 
-            <motionFormButton>Login</motionFormButton>
-
+          <Form.Button primary={true} size={'medium'} style={{width:'200px'}}> Login</Form.Button>
+          <Link to='/'>Back to homepage</Link>
           </div>
       </Form>
         </div>
-      </div>
+      </motion.div>
     );
   
 }

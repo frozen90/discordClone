@@ -81,4 +81,6 @@ export const tokenConfig = () => {
   }
 
   return config
-}
+};
+
+export default tokenConfig;

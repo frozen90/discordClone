@@ -5,3 +5,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_ERRORS = 'LOGOUT_ERRORS';
+
+
+//STAFF DISPATCH
+export const STAFF_LOADING = 'STAFF_LOADING';
+export const STAFF = 'STAFF';

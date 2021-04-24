@@ -26,12 +26,14 @@ const HomePage = (props) => {
    useEffect(()=>{
       dispatch(loadUser());
     })
-    return (  
-              <Switch >
+   const location = useLocation();
+    return (  <AnimatePresence exitBeforeEnter>
+              <Switch location={location} key={location.pathname}>
                   <Route exact path='/' component={Landing}></Route>
                   <PrivateRoute path='/dashboard' component={Dashboard}></PrivateRoute>
                   <Route path='/login' component={Login}></Route>
               </Switch>
+              </AnimatePresence>
     );
   
 }

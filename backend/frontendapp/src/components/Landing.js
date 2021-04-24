@@ -99,7 +99,7 @@ const DesktopContainer = ({children}) => {
         >
           <Segment
             textAlign='center'
-            style={{ maxHeight: 800, padding: '1em 0em' }}
+            style={{ maxHeight: 750, padding: '1em 0em' }}
             vertical
           >
             <Menu
