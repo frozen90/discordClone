@@ -39,7 +39,7 @@ export const StaffTable = ({staff}) => {
     },[staff])
     return(
 
-    <Table tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
+    <Table inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
     </Table>
     )
 }

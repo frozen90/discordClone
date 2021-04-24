@@ -26,7 +26,7 @@ const Dashboard = () =>{
       <motion.div initial={{opacity: 1}} animate={{opacity:1}} exit={{x:-1000}}>
         <Sidebar.Pushable as={Segment}>
             <Sidebar
-            className='sidebarMenu'
+            className='blueBackground'
             as={Menu}
             animation='push'
             icon='labeled'
@@ -43,7 +43,7 @@ const Dashboard = () =>{
             <Sidebar.Pusher>
             <Segment basic>
               <Grid divided='vertically'>
-                <Grid.Row color='blue' style={{height:'50vh'}}  columns={2}>
+                <Grid.Row  style={{height:'50vh'}}  columns={2}>
                   <Grid.Column textAlign='center'>
                     <StaffTable staff={staffData}/>
                   </Grid.Column>
@@ -53,7 +53,7 @@ const Dashboard = () =>{
                   </Grid.Row>
               </Grid>
                 <Grid divided='vertically'>
-                  <Grid.Row color='blue' style={{height:'50vh'}} verticalAlign='middle' columns={2}>
+                  <Grid.Row  style={{height:'50vh'}} verticalAlign='middle' columns={2}>
                     <Grid.Column>
                       <Header as='h3' textAlign='center'>Live </Header>
                     </Grid.Column>
