@@ -31,7 +31,7 @@ export const StaffTable = ({staff}) => {
         return (
         <>
             <Table.Row>
-                <Table.HeaderCell colSpan='3'>Users</Table.HeaderCell>
+                <Table.HeaderCell colSpan='3'>Staff Members</Table.HeaderCell>
             </Table.Row>
             <Table.Row>
                 <Table.HeaderCell>First Name</Table.HeaderCell>

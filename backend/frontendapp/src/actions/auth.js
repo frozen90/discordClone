@@ -18,7 +18,6 @@ export const loadUser = () => (dispatch, getState) =>{
   dispatch({ type: USER_LOADING });
 
   // Get token from state
-  console.log("CALLED? ")
   axios.get('/api/auth/user', tokenConfig())
     .then(res =>{
       dispatch({
