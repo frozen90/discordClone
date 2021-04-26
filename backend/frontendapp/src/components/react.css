@@ -1,3 +1,7 @@
+.centered {
+    justify-content: center;
+
+}
 .blueBorder{
     border: 1px solid rgb(0,74,173) !important;
 }
