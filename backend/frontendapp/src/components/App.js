@@ -11,13 +11,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import HomePage from "./HomePage"
+import Routes from "./Routes"
 
 
 ReactDOM.render((
   <Provider store={store}>
       <Router>
-       <HomePage/>
+       <Routes/>
        </Router>
   </Provider>
 ), document.getElementById('react-app'));

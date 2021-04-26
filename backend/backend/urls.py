@@ -21,7 +21,7 @@ from frontendapp import urls as frontendapp_urls
 from rest_framework.authtoken import views as rest_views
 from rest_framework_jwt.views import obtain_jwt_token
 from backendapp.views import current_user, UserList
-from backendapp.api import RegisterAPI, LoginAPI, UserAPI
+from backendapp.api import RegisterAPI, LoginAPI, UserAPI, StaffAPI
 from knox import views as knox_views
 
 router = routers.DefaultRouter()
@@ -31,11 +31,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', UserList.as_view()),
     path('api/current_user/',current_user),
+    
+    #AUTH ENDPOINTS
     path('api/auth', include('knox.urls')),
     path('api/auth/register', RegisterAPI.as_view() ),
     path('api/auth/login', LoginAPI.as_view()),
     path('api/auth/user', UserAPI.as_view()),
     path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
+
+    #FUNCTIONAL ENDPOINTS
+    path('api/staff/', StaffAPI.as_view()),
     path('', include(frontendapp_urls)),
     
 

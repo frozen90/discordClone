@@ -13,9 +13,6 @@ const Dashboard = () =>{
     const [staffData, setStaffData] = useState([])
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const initialStaff = useSelector(state => state.staff.staffData.rows)
-    const handleLogout = () =>{
-        dispatch(logoutUser());
-    }
     useEffect(()=>{
       dispatch(loadStaff());  
     },[])
@@ -23,32 +20,17 @@ const Dashboard = () =>{
       setStaffData(initialStaff)
     },[initialStaff])
     return(
-      <motion.div initial={{opacity: 1}} animate={{opacity:1}} exit={{x:-1000}}>
-        <Sidebar.Pushable as={Segment}>
-            <Sidebar
-            className='blueBackground'
-            as={Menu}
-            animation='push'
-            icon='labeled'
-            inverted
-            vertical
-            visible
-            width='thin'
-            >
-            <Menu.Item as='a' onClick={handleLogout}>
-                Logout
-            </Menu.Item>
-            </Sidebar>
-
-            <Sidebar.Pusher>
+      <motion.div initial={{opacity: 0}} animate={{opacity:1}} style={{backgroundColor:'#333'}}>
             <Segment basic>
               <Grid divided='vertically'>
                 <Grid.Row  style={{height:'50vh'}}  columns={2}>
                   <Grid.Column textAlign='center'>
+                    <motion.div initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
                     <StaffTable staff={staffData}/>
+                    </motion.div>
                   </Grid.Column>
                   <Grid.Column textAlign='center'>
-                    <Header as='h3'>Stats </Header>
+                    <Header as='h3'> </Header>
                   </Grid.Column>
                   </Grid.Row>
               </Grid>
@@ -67,8 +49,7 @@ const Dashboard = () =>{
               <Divider vertical></Divider>
               <Divider horizontal></Divider>
             </Segment>
-            </Sidebar.Pusher>
-        </Sidebar.Pushable>
+       
         </motion.div>
     )
 }

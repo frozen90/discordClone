@@ -1,3 +1,6 @@
+.blueBorder{
+    border: 1px solid rgb(0,74,173) !important;
+}
 .blueBackground{
     background-color: rgb(0,74,173) !important;
 }
