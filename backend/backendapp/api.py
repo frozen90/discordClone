@@ -48,11 +48,9 @@ class StaffAPI(generics.GenericAPIView):
     required_groups = {
          'GET': ['manager', 'order_admin'],
          'POST': ['manager', 'order_admin'],
-         'PUT': ['__all__'],
      }
     staff = Staff.objects.all()
     serializer_class = StaffSerializer(staff, many=True)
-    print("TUUUTUTAJ",permission_classes)
    
     def get(self, request, *args, **kwargs):
         

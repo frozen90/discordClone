@@ -18,9 +18,16 @@ class HasGroupPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         # Get a mapping of methods -> required group.
         required_groups_mapping = getattr(view, "required_groups", {})
-
+        
         # Determine the required groups for this particular request method.
         required_groups = required_groups_mapping.get(request.method, [])
-
-        # Return True if the user has all the required groups or is staff.
-        return all([is_in_group(request.user, group_name) if group_name != "__all__" else True for group_name in required_groups]) or (request.user and request.user.is_staff)
+        check = False
+        for group_name in required_groups:
+            print(check)
+            if is_in_group(request.user, group_name) or request.user.is_staff:
+                check = True
+                print(check)
+                break
+            else:
+                check = False
+        return check
