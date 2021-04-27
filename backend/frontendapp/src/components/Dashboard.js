@@ -26,17 +26,17 @@ const Dashboard = () =>{
       
             <Segment basic style={{backgroundColor:'#333'}}>
               <motion.div style={{height:'100vh'}} initial={{opacity: 0}} animate={{opacity:1}} >
+              <motion.div initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
                 <Grid divided='vertically' centered stackable={true}>
                   <Grid.Row   columns={2} centered>
-                    <Grid.Column textAlign='center'>
-                      <motion.div initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
-                      <StaffTable staff={staffData}/>
-                      </motion.div>
+                    <Grid.Column textAlign='center'>           
+                      <StaffTable staff={staffData}/>              
                     </Grid.Column>
-                    <Grid.Column>
-                      <div style={{display:'flex', justifyContent:'center'}}>
+                    <Grid.Column >
+                    <Header as='h3' inverted>Volume Today </Header>
+                        <div>
                           <ShiftStats />
-                      </div>
+                        </div>
                     </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -52,6 +52,7 @@ const Dashboard = () =>{
                     </Grid.Row>
                     
                 </Grid>
+                </motion.div>
               </motion.div>
             </Segment>
        

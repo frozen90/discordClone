@@ -1,3 +1,13 @@
+.marginBottom{
+    margin-bottom: 10px;
+}
+.verticalAlign{
+    
+    display: inline-flex;
+    vertical-align: middle;
+    text-align: center;
+      
+}
 .centered {
     justify-content: center;
 
