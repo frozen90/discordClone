@@ -1,8 +1,10 @@
 from rest_framework import generics, permissions
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from knox.models import AuthToken
 from .models import Staff
 from .serializer import UserSerializer, RegisterSerializer, LoginSerializer, StaffSerializer
+from .permissions import HasGroupPermission
 
 #Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -41,11 +43,17 @@ class UserAPI(generics.RetrieveAPIView):
         return self.request.user
 
 #Get Staff Members
-class StaffAPI(generics.RetrieveAPIView):
-    permission_classes = [
-        permissions.IsAuthenticated
-    ]
+class StaffAPI(generics.GenericAPIView):
+    permission_classes = [HasGroupPermission]
+    required_groups = {
+         'GET': ['manager', 'order_admin'],
+         'POST': ['manager', 'order_admin'],
+         'PUT': ['__all__'],
+     }
+    staff = Staff.objects.all()
+    serializer_class = StaffSerializer(staff, many=True)
+    print("TUUUTUTAJ",permission_classes)
+   
     def get(self, request, *args, **kwargs):
-        staff = Staff.objects.all()
-        serializer_class = StaffSerializer(staff, many=True)
-        return Response({'rows':serializer_class.data, 'total':staff.count()})
+        
+        return Response({'rows':self.serializer_class.data, 'total':self.staff.count()})

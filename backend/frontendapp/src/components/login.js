@@ -15,7 +15,7 @@ const Login = (props) => {
   const [errors, setErrors] = useState({username:'',password:''})
   const [loadingDashboard, setLoadingDashboard] = useState(false)
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const formError = useSelector(state => state.errors)
+  const formError = useSelector(state => state.auth.errors)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const btnVariants = {
@@ -43,12 +43,10 @@ const Login = (props) => {
     }
     dispatch(login(username, password))
   }
- 
   if (isAuthenticated){
     
     return <Redirect to="/dashboard" />;
   }
-
     return (
 
       <motion.div className="testBackground" initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}}>

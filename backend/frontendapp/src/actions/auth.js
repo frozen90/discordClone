@@ -48,7 +48,7 @@ export const login = (username, password) => (dispatch, getState) =>{
         payload: res.data
       })
     }).catch(err =>{
-      dispatch({type: LOGIN_FAIL})
+      dispatch({type: LOGIN_FAIL, data:err.response.status})
     })
 }
 

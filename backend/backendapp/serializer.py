@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .models import Staff
 
+
 #User Serializer
 class UserSerializer(serializers.ModelSerializer):
 
@@ -62,6 +63,7 @@ class LoginSerializer(serializers.Serializer):
 
 
 class StaffSerializer(serializers.ModelSerializer):
+
       class Meta:
         model = Staff
         fields = '__all__'

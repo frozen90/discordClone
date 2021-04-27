@@ -14,7 +14,7 @@ export const StaffTable = ({staff}) => {
     const renderBody = (data) =>{
         return(
             
-            <Table.Row key={data.id}>
+            <Table.Row key={data.id} >
                 <Table.Cell>{data.firstName}</Table.Cell>
                 <Table.Cell >{data.secondName}</Table.Cell>
                 <Table.Cell>{data.live === true ?
@@ -36,7 +36,7 @@ export const StaffTable = ({staff}) => {
             <Table.Row>
                 <Table.HeaderCell>First Name</Table.HeaderCell>
                 <Table.HeaderCell>Last Name</Table.HeaderCell>
-                <Table.HeaderCell>Live</Table.HeaderCell>
+                <Table.HeaderCell>Online</Table.HeaderCell>
             </Table.Row>
         </>
         )
@@ -46,7 +46,7 @@ export const StaffTable = ({staff}) => {
     },[staff])
     return(
 
-    <Table className='blueBorder' inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
+    <Table className='greyBorder' inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
     </Table>
     )
 }
