@@ -6,6 +6,7 @@ from django_countries.fields import CountryField
 class Staff(models.Model):
     firstName = models.CharField(max_length=200)
     secondName = models.CharField(max_length=200)
+    initials = models.CharField(max_length=4)
     live = models.BooleanField(default=False)
 
     def __str__(self):
@@ -31,6 +32,7 @@ class ProductGroup(models.Model):
 
 class Product(models.Model):
     productName = models.CharField(max_length=200)
+    productCode = models.IntegerField(default=0)
     description = models.CharField(max_length=1024)
     available = models.BooleanField(default=False)
     barcode = models.CharField(max_length=52)

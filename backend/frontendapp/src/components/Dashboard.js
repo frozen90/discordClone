@@ -8,6 +8,7 @@ import { loadStaff } from '../actions/staff';
 //Dashboard components
 import StaffTable from './staff/StaffTable';
 import ShiftStats from './dashboard/ShiftStats';
+import PickHistoryBar from './dashboard/PickHistoryBar';
 
 
 const Dashboard = () =>{
@@ -24,9 +25,9 @@ const Dashboard = () =>{
     return(
       
             <Segment basic style={{backgroundColor:'#333'}}>
-              <motion.div initial={{opacity: 0}} animate={{opacity:1}} >
+              <motion.div style={{height:'100vh'}} initial={{opacity: 0}} animate={{opacity:1}} >
                 <Grid divided='vertically' centered stackable={true}>
-                  <Grid.Row  style={{height:'50vh'}}  columns={2} centered>
+                  <Grid.Row   columns={2} centered>
                     <Grid.Column textAlign='center'>
                       <motion.div initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
                       <StaffTable staff={staffData}/>
@@ -40,9 +41,9 @@ const Dashboard = () =>{
                     </Grid.Row>
                 </Grid>
                   <Grid divided='vertically'>
-                    <Grid.Row  style={{height:'50vh'}} verticalAlign='middle' columns={2}>
+                    <Grid.Row   verticalAlign='middle' columns={2}>
                       <Grid.Column>
-                        <Header as='h3' textAlign='center'>Live </Header>
+                        <PickHistoryBar />
                       </Grid.Column>
                       <Grid.Column>
                         <Header as='h3' textAlign='center'>Stats </Header>
