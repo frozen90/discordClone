@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Header, Segment, Divider, } from 'semantic-ui-react';
+import { Grid, Header, Segment, Divider, Container, } from 'semantic-ui-react';
 import { motion } from 'framer-motion';
 import { loadStaff } from '../actions/staff';
 
@@ -24,23 +24,16 @@ const Dashboard = () =>{
     },[initialStaff])
     return(
       
-            <Segment basic style={{backgroundColor:'#333'}}>
-              <motion.div style={{height:'100vh'}} initial={{opacity: 0}} animate={{opacity:1}} >
-              <motion.div initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
-                <Grid divided='vertically' centered stackable={true}>
-                  <Grid.Row   columns={2} centered>
-                    <Grid.Column textAlign='center'>           
+              <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
+                <Grid padded columns='equal' stackable={true} style={{backgroundColor:'#333'}}>
+                    <Grid.Column>           
                       <StaffTable staff={staffData}/>              
                     </Grid.Column>
-                    <Grid.Column >
-                    <Header as='h3' inverted>Volume Today </Header>
-                        <div>
+                    <Grid.Column>
                           <ShiftStats />
-                        </div>
                     </Grid.Column>
-                    </Grid.Row>
                 </Grid>
-                  <Grid divided='vertically'>
+                  <Grid padded columns='equal' stackable={true}  style={{backgroundColor:'#333'}}>
                     <Grid.Row   verticalAlign='middle' columns={2}>
                       <Grid.Column>
                         <PickHistoryBar />
@@ -50,11 +43,9 @@ const Dashboard = () =>{
                       </Grid.Column>
                       
                     </Grid.Row>
-                    
-                </Grid>
+                  </Grid>
                 </motion.div>
-              </motion.div>
-            </Segment>
+
        
         
     )

@@ -41,33 +41,25 @@ const Routes = (props) => {
    },[location.pathname])
     return (  
     <AnimatePresence exitBeforeEnter>
-      <Sidebar.Pushable as={Segment}>
-          <Sidebar
+          <Menu
             className='blueBackground'
             as={Menu}
-            animation='push'
-            icon='labeled'
             inverted
-            vertical
-            visible={visibleSidebar}
-            direction='left'
+            attached='top'
             width='thin'
             >
               <Menu.Item as='a' href='/dashboard' active={location.pathname === '/dashboard' ? true : false}>
                 Dashboard
               </Menu.Item>
-              <Menu.Item as='a' onClick={handleLogout}>
+              <Menu.Item as='a' position='right' onClick={handleLogout}>
                   Logout
               </Menu.Item>
-            </Sidebar>
-            <Sidebar.Pusher>
+            </Menu>
                 <Switch location={location} key={location.pathname}>
                     <Route exact path='/' component={Landing}></Route>
                     <PrivateRoute path='/dashboard' component={Dashboard}></PrivateRoute>
                     <Route path='/login' component={Login}></Route>
                 </Switch>
-            </Sidebar.Pusher>
-        </Sidebar.Pushable>
       </AnimatePresence>
     );
   

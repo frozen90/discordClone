@@ -1,60 +1,53 @@
-import React, { useDebugValue, useEffect, useState } from 'react';
-import { Icon, Image, Statistic } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react'
+import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 import { IconContext } from "react-icons";
-import { FcShipped, FcAssistant,FcDocument, FcPackage } from "react-icons/fc";
-
+import { BsDiamondFill, BsCircleFill } from "react-icons/bs";
 export const ShiftStats = () => {
+    const [data, setData] = useState([{orders:106,casesPicked:123,openPo:15,activePickers:12}])
+    const renderBody = (data) =>{
+        return(
+            
+            <Table.Row key={0} className='tableFont'>
+                <Table.Cell textAlign='center'>
+                    <IconContext.Provider value={{ color: "orange", style:{width:'18px', height:'18px'}}}>
+                        <BsDiamondFill />
+                    </IconContext.Provider>{data.orders}
+                </Table.Cell>
+                <Table.Cell textAlign='center'>
+                    <IconContext.Provider value={{ color: "green", style:{width:'18px', height:'18px'}}}>
+                        <BsCircleFill />
+                    </IconContext.Provider>{data.casesPicked}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                    <IconContext.Provider value={{ color: "orange", style:{width:'18px', height:'18px'}}}>
+                        <BsDiamondFill />
+                    </IconContext.Provider>{data.openPo}</Table.Cell>
+                <Table.Cell textAlign='center'>
+                    <IconContext.Provider value={{ color: "green", style:{width:'18px', height:'18px'}}}>
+                        <BsCircleFill />
+                    </IconContext.Provider>{data.activePickers}</Table.Cell>
+            </Table.Row>
+            
+        )
+    }
+    const renderHeader = () =>{
+        return (
+        <>
+            <Table.Row textAlign='left'>
+                <Table.HeaderCell colSpan='4'>Volume Today</Table.HeaderCell>
+            </Table.Row>
+            <Table.Row>
+                <Table.HeaderCell>Orders to Ship</Table.HeaderCell>
+                <Table.HeaderCell>Cases picked</Table.HeaderCell>
+                <Table.HeaderCell>Open POs</Table.HeaderCell>
+                <Table.HeaderCell>Active Pickers</Table.HeaderCell>
+            </Table.Row>
+        </>
+        )
+    }
+    return(
 
-return(
-    <Statistic.Group inverted size='large' className='verticalAlign'>
-        <Statistic >
-            <Statistic.Label className='marginBottom' >Orders to ship</Statistic.Label>
-            
-            <Statistic.Value text className='verticalAlign'>
-            <IconContext.Provider value={{style:{width:'40px', height:'40px'}}}>
-                <FcShipped/>
-            </IconContext.Provider>
-                1200
-           
-            
-               
-            </Statistic.Value>
-            
-        </Statistic>
-
-        <Statistic>
-            <Statistic.Label className='marginBottom'>Orders picked</Statistic.Label>
-            <Statistic.Value text className='verticalAlign'>
-            <IconContext.Provider value={{style:{width:'40px', height:'40px'}}}>
-                <FcPackage/>
-            </IconContext.Provider>               
-                1
-            </Statistic.Value>
-            
-        </Statistic>
-
-        <Statistic>
-        <Statistic.Label className='marginBottom'>Open POs</Statistic.Label>
-        <Statistic.Value text className='verticalAlign'>
-            <IconContext.Provider value={{style:{width:'40px', height:'40px'}}}>
-                <FcDocument/>
-            </IconContext.Provider>               
-                25
-            </Statistic.Value>
-            
-        </Statistic>
-
-        <Statistic>
-            <Statistic.Label className='marginBottom'>Active Pickers</Statistic.Label>
-            <Statistic.Value text className='verticalAlign'>
-            <IconContext.Provider value={{style:{width:'40px', height:'40px'}}}>
-                <FcAssistant/>
-            </IconContext.Provider>               
-                12
-            </Statistic.Value>
-            
-        </Statistic>
-  </Statistic.Group>
+    <Table textAlign='center' className='greyBorder' inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
+    </Table>
     )
 }
 
