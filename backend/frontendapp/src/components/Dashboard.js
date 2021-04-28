@@ -9,6 +9,7 @@ import { loadStaff } from '../actions/staff';
 import StaffTable from './staff/StaffTable';
 import ShiftStats from './dashboard/ShiftStats';
 import PickHistoryBar from './dashboard/PickHistoryBar';
+import Inventory from './dashboard/Inventory';
 
 
 const Dashboard = () =>{
@@ -26,7 +27,7 @@ const Dashboard = () =>{
       
               <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
                 <Grid padded columns='equal' stackable={true} style={{backgroundColor:'#333'}}>
-                    <Grid.Column>           
+                    <Grid.Column >           
                       <StaffTable staff={staffData}/>              
                     </Grid.Column>
                     <Grid.Column>
@@ -39,7 +40,7 @@ const Dashboard = () =>{
                         <PickHistoryBar />
                       </Grid.Column>
                       <Grid.Column>
-                        <Header as='h3' textAlign='center'>Stats </Header>
+                        <Inventory/>
                       </Grid.Column>
                       
                     </Grid.Row>
