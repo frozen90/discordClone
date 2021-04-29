@@ -25,7 +25,7 @@ const Dashboard = () =>{
     },[initialStaff])
     return(
       
-              <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{x:'-1000px'}} animate={{x:0}} transition={{duration:0.3}}>
+              <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{scale:0}} animate={{scale:1}} exit={{scale:0}} transition={{duration:0.5}}>
                 <Grid padded columns='equal' stackable={true} style={{backgroundColor:'#333'}}>
                     <Grid.Column >           
                       <StaffTable staff={staffData}/>              

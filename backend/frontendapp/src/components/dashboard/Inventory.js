@@ -74,7 +74,7 @@ export const Inventory = () => {
         </Table>
           <Doughnut height={120} options={{maintainAspectRatio:true,legend:{position:'left',labels:{
             fontColor:'white',
-            fontSize: 18,
+            fontSize: 16,
             boxWidth: 50,
           }}
           }} data={chartData} />

@@ -59,7 +59,7 @@ const Routes = () => {
                   Logout
               </Menu.Item>
             </Menu>
-                <Switch>
+                <Switch loaction={location} key={location.pathname}>
                     <Route exact path='/' component={Landing}></Route>
                     <PrivateRoute exact path='/warehouse/dashboard' component={Dashboard} pathname={location.pathname}></PrivateRoute>
                     <PrivateRoute exact path='/warehouse/products' component={ProductsDashboard} pathname={location.pathname}></PrivateRoute>
