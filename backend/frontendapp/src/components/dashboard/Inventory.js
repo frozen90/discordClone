@@ -3,13 +3,15 @@ import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 import { IconContext } from "react-icons";
 import { BsDiamondFill, BsCircleFill } from "react-icons/bs";
 import { Doughnut } from 'react-chartjs-2';
+
+
 export const Inventory = () => {
     const chartData = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Bakery(12)', 'Diary(10)', 'Vegetables(20)', 'Meat(5)', 'Confections(2)', 'Ready Meals(3)'],
         datasets: [
           {
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [12, 10, 20, 5, 2, 3],
             backgroundColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
@@ -30,6 +32,7 @@ export const Inventory = () => {
           },
         ],
       };
+
     const [data, setData] = useState([
         {category:'Bakery',description:'Crownfield CornFlakes',productCode:123456789,stock:12},
         {category:'Bakery',description:'Crownfield CornFlakes',productCode:123456789,stock:15},
@@ -67,12 +70,14 @@ export const Inventory = () => {
     }
     return(
         <div>
-        <Table textAlign='center' className='greyBorder' inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
+        <Table className='greyBorder' inverted tableData={data} renderBodyRow={renderBody} headerRow={renderHeader}>
         </Table>
-        <Doughnut options={{
-          responsive: true,
-          maintainAspectRatio: true,
-        }} data={chartData} />
+          <Doughnut height={120} options={{maintainAspectRatio:true,legend:{position:'left',labels:{
+            fontColor:'white',
+            fontSize: 18,
+            boxWidth: 50,
+          }}
+          }} data={chartData} />
         </div>
     )
 }

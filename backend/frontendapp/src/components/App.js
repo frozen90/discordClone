@@ -18,6 +18,6 @@ ReactDOM.render((
   <Provider store={store}>
       <Router>
        <Routes/>
-       </Router>
+      </Router>
   </Provider>
 ), document.getElementById('react-app'));

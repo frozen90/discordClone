@@ -44,8 +44,12 @@ const Login = (props) => {
     dispatch(login(username, password))
   }
   if (isAuthenticated){
-    
-    return <Redirect to="/dashboard" />;
+    console.log(props.next)
+    if(props.next){
+      return <Redirect to={props.next} />;
+    }else{
+      return <Redirect to='/warehouse/dashboard' />
+    }
   }
     return (
 

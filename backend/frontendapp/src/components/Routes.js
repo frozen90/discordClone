@@ -1,7 +1,5 @@
-import React, {useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
-import { login } from '../actions/auth';
+import React, {useEffect, useState,  } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { logout, logoutUser } from '../actions/auth';
 import {
   BrowserRouter as Router,
@@ -11,24 +9,26 @@ import {
   Redirect,
   useLocation,
 } from "react-router-dom";
-import './react.css'
+import './react.css';
+import { Menu } from 'semantic-ui-react';
 //Components
 import Login from './Login';
 import PrivateRoute from './common/PrivateRoute'; 
 import Dashboard from './Dashboard';
-import { Grid, Header, Icon, Image, Menu, Segment, Sidebar, Divider, Button, Container } from 'semantic-ui-react';
+import ProductsDashboard from './products/ProductsDashboard';
 import Landing from './Landing';
 //Actions
 import { loadUser } from '../actions/auth';
 import { AnimatePresence} from 'framer-motion';
 
-const Routes = (props) => {
+const Routes = () => {
   const [visibleSidebar, setVisibleSidebar] = useState(false)
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
    const dispatch = useDispatch()
    useEffect(()=>{
       dispatch(loadUser());
-    })
-    const handleLogout = () =>{
+     },[])
+  const handleLogout = () =>{
       dispatch(logoutUser());
   }
    const location = useLocation();
@@ -47,17 +47,22 @@ const Routes = (props) => {
             inverted
             attached='top'
             width='thin'
+            style={visibleSidebar ? null: {display:'none'}}
             >
-              <Menu.Item as='a' href='/dashboard' active={location.pathname === '/dashboard' ? true : false}>
+              <Menu.Item as='a' href='/warehouse/dashboard' active={location.pathname === '/warehouse/dashboard' ? true : false}>
                 Dashboard
+              </Menu.Item>
+              <Menu.Item as='a' href='/warehouse/products' active={location.pathname === '/warehouse/products' ? true : false}>
+                Products
               </Menu.Item>
               <Menu.Item as='a' position='right' onClick={handleLogout}>
                   Logout
               </Menu.Item>
             </Menu>
-                <Switch location={location} key={location.pathname}>
+                <Switch>
                     <Route exact path='/' component={Landing}></Route>
-                    <PrivateRoute path='/dashboard' component={Dashboard}></PrivateRoute>
+                    <PrivateRoute exact path='/warehouse/dashboard' component={Dashboard} pathname={location.pathname}></PrivateRoute>
+                    <PrivateRoute exact path='/warehouse/products' component={ProductsDashboard} pathname={location.pathname}></PrivateRoute>
                     <Route path='/login' component={Login}></Route>
                 </Switch>
       </AnimatePresence>
