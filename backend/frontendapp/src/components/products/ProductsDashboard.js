@@ -7,6 +7,8 @@ import ProductsGoodsIn from './components/ProductsGoodsIn';
 import ProductsStock from './components/ProductsStock';
 import ProductsStatistics from './components/ProductsStatistics';
 import ProductsSearch from './components/ProductsSearch'
+import ProductOverview from './components/ProductOverview';
+import ProductsTable from './components/ProductsTable';
 
 
 const ProductsDashboard = () =>{
@@ -31,40 +33,7 @@ const ProductsDashboard = () =>{
       
         <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{scale:0}} animate={{scale:1}} exit={{scale:0}} transition={{duration:0.5}}>
         {findProducts ?
-       <Grid padded>
-        <Grid.Column width={4}>
-          <Menu fluid inverted vertical >
-            <Menu.Item
-              name='Details'
-              active={activeItem === 'Details'}
-              onClick={handleItemClick}
-            />
-            <Menu.Item
-              name='Stock'
-              active={activeItem === 'Stock'}
-              onClick={handleItemClick}
-            />
-            <Menu.Item
-              name='Goods In'
-              active={activeItem === 'Goods In'}
-              onClick={handleItemClick}
-            />
-            <Menu.Item
-              name='Statistics'
-              active={activeItem === 'Statistics'}
-              onClick={handleItemClick}
-            />
-          </Menu>
-        </Grid.Column>
-
-        <Grid.Column stretched width={12} style={{height:'90vh',backgroundColor:'#333'}}>
-          <Segment inverted>
-            <AnimatePresence exitBeforeEnter>
-              {activeComponent}
-            </AnimatePresence>              
-          </Segment>
-        </Grid.Column>
-      </Grid> : <ProductsSearch/>}
+       <ProductsTable/> : <ProductsSearch/>}
     </motion.div>
 
        

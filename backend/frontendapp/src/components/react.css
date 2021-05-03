@@ -15,6 +15,9 @@
     justify-content: center;
 
 }
+.backgroundColored{
+    background-color:'#333' !important;
+}
 .greyBorder{
     border:1px solid rgba(255,255,255,.1)!important
 }
