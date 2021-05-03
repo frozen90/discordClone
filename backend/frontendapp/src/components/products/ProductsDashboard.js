@@ -14,6 +14,7 @@ const ProductsDashboard = () =>{
     const [activeItem, setActiveItem] = useState('Details')
     const [activeComponent, setActiveComponent] = useState(<ProductsDetails/>)
     const [product, setProduct] = useState(null)
+    const findProducts = useSelector(state => state.products.findProducts)
     const handleItemClick = (e) =>{
       setActiveItem(e.target.outerText)
       if(e.target.outerText === 'Details'){
@@ -29,7 +30,7 @@ const ProductsDashboard = () =>{
     return(
       
         <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{scale:0}} animate={{scale:1}} exit={{scale:0}} transition={{duration:0.5}}>
-        {product != null ?
+        {findProducts ?
        <Grid padded>
         <Grid.Column width={4}>
           <Menu fluid inverted vertical >

@@ -16,6 +16,7 @@ import Login from './Login';
 import PrivateRoute from './common/PrivateRoute'; 
 import Dashboard from './Dashboard';
 import ProductsDashboard from './products/ProductsDashboard';
+import StockDashboard from './stock/StockDashboard';
 import Landing from './Landing';
 //Actions
 import { loadUser } from '../actions/auth';
@@ -55,6 +56,9 @@ const Routes = () => {
               <Menu.Item as='a' href='/warehouse/products' active={location.pathname === '/warehouse/products' ? true : false}>
                 Products
               </Menu.Item>
+              <Menu.Item as='a' href='/warehouse/stock' active={location.pathname === '/warehouse/stock' ? true : false}>
+                Stock
+              </Menu.Item>
               <Menu.Item as='a' position='right' onClick={handleLogout}>
                   Logout
               </Menu.Item>
@@ -63,6 +67,7 @@ const Routes = () => {
                     <Route exact path='/' component={Landing}></Route>
                     <PrivateRoute exact path='/warehouse/dashboard' component={Dashboard} pathname={location.pathname}></PrivateRoute>
                     <PrivateRoute exact path='/warehouse/products' component={ProductsDashboard} pathname={location.pathname}></PrivateRoute>
+                    <PrivateRoute exact path='/warehouse/stock' component={StockDashboard} pathname={location.pathname}></PrivateRoute>
                     <Route path='/login' component={Login}></Route>
                 </Switch>
       </AnimatePresence>

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useCallback, useDebugValue} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {FIND_PRODUCTS} from '../../../actions/types';
 import {
   Button,
   Divider,
@@ -9,7 +11,13 @@ import {
   Segment,
 } from 'semantic-ui-react'
 
-const ProductsSearch = () => (
+const ProductsSearch = () => {
+
+const dispatch = useDispatch();
+const handleFindClick = () =>{
+  dispatch({type:FIND_PRODUCTS, data:true})
+}
+return(
   <Segment placeholder style={{height:'90vh',backgroundColor:'#333'}}>
     <Grid columns={2} stackable textAlign='center'>
       <Divider vertical inverted>Or</Divider>
@@ -18,10 +26,9 @@ const ProductsSearch = () => (
         <Grid.Column>
           <Header icon>
             <Icon name='search' inverted/>
-            <span style={{color:'white'}}>Find Products Details</span>
+            <span style={{color:'white'}}>Find Products</span>
           </Header>
-
-          <Search placeholder='Search Products...' />
+          <Button secondary onClick={handleFindClick}>Find</Button>
         </Grid.Column>
 
         <Grid.Column>
@@ -29,11 +36,12 @@ const ProductsSearch = () => (
             <Icon name='box' inverted/>
              <span style={{color:'white'}}>Add New Product</span>
           </Header>
-          <Button primary>Create</Button>
+          <Button secondary>Create</Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
   </Segment>
-)
+    )
+}
 
 export default ProductsSearch;
