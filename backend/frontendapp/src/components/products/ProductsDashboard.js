@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Header, Segment, Divider,Menu, Container, } from 'semantic-ui-react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ProductsDetails from './components/ProductsDetails';
 import ProductsGoodsIn from './components/ProductsGoodsIn';
 import ProductsStock from './components/ProductsStock';
 import ProductsStatistics from './components/ProductsStatistics';
+import ProductsSearch from './components/ProductsSearch'
 
 
 const ProductsDashboard = () =>{
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState('Details')
     const [activeComponent, setActiveComponent] = useState(<ProductsDetails/>)
+    const [product, setProduct] = useState(null)
     const handleItemClick = (e) =>{
       setActiveItem(e.target.outerText)
       if(e.target.outerText === 'Details'){
@@ -27,6 +29,7 @@ const ProductsDashboard = () =>{
     return(
       
         <motion.div style={{backgroundColor:'#333',height:'100%'}} initial={{scale:0}} animate={{scale:1}} exit={{scale:0}} transition={{duration:0.5}}>
+        {product != null ?
        <Grid padded>
         <Grid.Column width={4}>
           <Menu fluid inverted vertical >
@@ -55,10 +58,12 @@ const ProductsDashboard = () =>{
 
         <Grid.Column stretched width={12} style={{height:'90vh',backgroundColor:'#333'}}>
           <Segment inverted>
+            <AnimatePresence exitBeforeEnter>
               {activeComponent}
+            </AnimatePresence>              
           </Segment>
         </Grid.Column>
-      </Grid>
+      </Grid> : <ProductsSearch/>}
     </motion.div>
 
        

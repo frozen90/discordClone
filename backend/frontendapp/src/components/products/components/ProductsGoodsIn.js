@@ -9,7 +9,7 @@ export const ProductsGoodsIn = () =>{
     
     
     return(
-        <motion.div initial={{x:-1000}} animate={{x:0}}>
+        <motion.div initial={{scale:0}} animate={{scale:1}} exit={{x:-1000}}>
             Test Div
         </motion.div>
     )
