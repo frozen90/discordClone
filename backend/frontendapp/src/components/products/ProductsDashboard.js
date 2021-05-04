@@ -12,6 +12,7 @@ import ProductsTable from './components/ProductsTable';
 
 
 const ProductsDashboard = () =>{
+  
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState('Details')
     const [activeComponent, setActiveComponent] = useState(<ProductsDetails/>)

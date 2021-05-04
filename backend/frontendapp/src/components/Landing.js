@@ -133,7 +133,7 @@ const DesktopContainer = ({children}) => {
                   initial={{y: -250}}
                   animate={{y:0}}>               
                     <Button as='a' href="/login">
-                        Log in
+                    <Icon name='sign-in'/> Log in
                     </Button>
                     <Button as='a' primary={true} style={{ marginLeft: '0.5em' }}>
                       Sign Up

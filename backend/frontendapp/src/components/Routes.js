@@ -10,7 +10,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import './react.css';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 //Components
 import Login from './Login';
 import PrivateRoute from './common/PrivateRoute'; 
@@ -60,7 +60,7 @@ const Routes = () => {
                 Stock
               </Menu.Item>
               <Menu.Item as='a' position='right' onClick={handleLogout}>
-                  Logout
+              <Icon name='log out' inverted/>Logout
               </Menu.Item>
             </Menu>
                 <Switch loaction={location} key={location.pathname}>
