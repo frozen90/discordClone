@@ -38,7 +38,7 @@ export const ProductsTable = () => {
                 <Table.Cell className='greyBorder'>Test</Table.Cell>
                 <Table.Cell className='greyBorder'>Test</Table.Cell>
                 <Table.Cell className='greyBorder'>Test</Table.Cell>
-                <Table.Cell className='greyBorder'><Button onClick={() => moreInfoHandle(data)}>More Info</Button></Table.Cell>
+                <Table.Cell className='greyBorder' textAlign='center'><Button onClick={() => moreInfoHandle(data)}>More Info</Button></Table.Cell>
             </Table.Row>
             
         )
