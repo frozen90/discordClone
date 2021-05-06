@@ -25,10 +25,8 @@ export const ProductsTable = () => {
     const moreInfoHandle = (data) =>{
         setProduct(data)
         setShowOverview(true)
+        setShowTable('None')
     }
-    useEffect(()=>{
-        console.log(product)
-    },[product])
     const renderBody = (data) =>{
         return(
             

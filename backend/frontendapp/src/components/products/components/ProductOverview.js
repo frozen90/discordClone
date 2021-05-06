@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Header, Segment, Divider,Menu, Container, } from 'semantic-ui-react';
+import { Grid, Header, Segment, Divider,Menu, Container, Button, } from 'semantic-ui-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProductsDetails from './ProductsDetails';
 import ProductsGoodsIn from './ProductsGoodsIn';
@@ -11,17 +11,13 @@ import ProductsStatistics from './ProductsStatistics';
 const ProductOverview = ({product,showComponent}) =>{
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState('Details')
-    const [activeComponent, setActiveComponent] = useState(<ProductsDetails product={productDetails}/>)
+    const [activeComponent, setActiveComponent] = useState(<ProductsDetails product={product}/>)
     const [productDetails, setProductDetails] = useState({})
     useEffect(()=>{
-      console.log(product)
       setActiveComponent(<ProductsDetails product={product}/>)
+      setProductDetails(product)
     },[product])
 
-    useEffect(()=>{
-      console.log(productDetails)
-      setActiveComponent(<ProductsDetails product={productDetails}/>)
-    },[productDetails])
     const handleItemClick = (e) =>{
       setActiveItem(e.target.outerText)
       if(e.target.outerText === 'Details'){
@@ -34,9 +30,12 @@ const ProductOverview = ({product,showComponent}) =>{
         setActiveComponent(<ProductsStatistics product={productDetails}/>)
       }  
       }
+
     return(
       <>
       {showComponent ?
+      <>
+      <Button as='a' href='/warehouse/products/' inverted>Back to Products Table</Button>
        <Grid padded>
         <Grid.Column width={4}>
           <Menu fluid inverted vertical >
@@ -71,6 +70,7 @@ const ProductOverview = ({product,showComponent}) =>{
           </Segment>
         </Grid.Column>
       </Grid> 
+      </>
       : null}
        
        </>  
