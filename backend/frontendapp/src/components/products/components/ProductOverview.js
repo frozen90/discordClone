@@ -8,24 +8,35 @@ import ProductsStock from './ProductsStock';
 import ProductsStatistics from './ProductsStatistics';
 
 
-const ProductOverview = ({product}) =>{
+const ProductOverview = ({product,showComponent}) =>{
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState('Details')
-    const [activeComponent, setActiveComponent] = useState(<ProductsDetails/>)
+    const [activeComponent, setActiveComponent] = useState(<ProductsDetails product={productDetails}/>)
+    const [productDetails, setProductDetails] = useState({})
+    useEffect(()=>{
+      console.log(product)
+      setActiveComponent(<ProductsDetails product={product}/>)
+    },[product])
+
+    useEffect(()=>{
+      console.log(productDetails)
+      setActiveComponent(<ProductsDetails product={productDetails}/>)
+    },[productDetails])
     const handleItemClick = (e) =>{
       setActiveItem(e.target.outerText)
       if(e.target.outerText === 'Details'){
-        setActiveComponent(<ProductsDetails/>)
+        setActiveComponent(<ProductsDetails product={productDetails}/>)
       }else if(e.target.outerText === 'Stock'){
-        setActiveComponent(<ProductsStock/>)
+        setActiveComponent(<ProductsStock product={productDetails}/>)
       }else if(e.target.outerText === 'Goods In'){
-        setActiveComponent(<ProductsGoodsIn/>)
+        setActiveComponent(<ProductsGoodsIn product={productDetails}/>)
       }else if(e.target.outerText === 'Statistics'){
-        setActiveComponent(<ProductsStatistics/>)
+        setActiveComponent(<ProductsStatistics product={productDetails}/>)
       }  
       }
     return(
-      
+      <>
+      {showComponent ?
        <Grid padded>
         <Grid.Column width={4}>
           <Menu fluid inverted vertical >
@@ -60,9 +71,9 @@ const ProductOverview = ({product}) =>{
           </Segment>
         </Grid.Column>
       </Grid> 
-
+      : null}
        
-        
+       </>  
     )
 }
 

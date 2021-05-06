@@ -5,12 +5,11 @@ import { motion } from 'framer-motion';
 
 
 
-export const ProductsDetails = () =>{
-    
+export const ProductsDetails = ({product}) =>{
     
     return(
         <motion.div initial={{scale:0}} animate={{scale:1}} exit={{x:-1000}}>
-            Test Div
+            {product.id}
         </motion.div>
     )
 }
