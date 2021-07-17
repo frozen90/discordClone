@@ -1,23 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState, useRef } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import store from '../store';
-import { motion } from "framer-motion"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import Routes from "./Routes"
-
+import Main from "../Main";
 
 ReactDOM.render((
   <Provider store={store}>
-      <Router>
-       <Routes/>
-      </Router>
+      <Main/>
   </Provider>
 ), document.getElementById('react-app'));
