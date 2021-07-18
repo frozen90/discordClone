@@ -1,23 +1,40 @@
 import React, {useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { Container, Button, Checkbox, Form, Message, Segment, Grid, Menu, Label, Input, Icon, Dropdown } from 'semantic-ui-react';
-
+import { Container, Button, Checkbox, Form, Message, Segment, Grid, Menu, Label, Input, Icon, Dropdown, TextArea } from 'semantic-ui-react';
+import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
 
 const Window = (props) => {
     const [activeItem, setActiveItem] = useState('gamepad')
-    const [activeTab, setActiveTab] = useState('')
-    const handleItemClick = (e,{name}) =>{
+    const [showVoiceChannels, setShowVoiceChannels] = useState(false)
+    const [showTextChannels, setShowTextChannels] = useState(false)
+    const [message, setMessage] = useState("")
+    const [messages, setMessages] = useState([])
+    const handleItemClick = (e,{name}) => {
         setActiveItem(name)
     }
-    const handleVoiceChannelsClick = (e,{name}) =>{
-        if(activeTab === 'Voice Channels'){
-            setActiveTab('')
-        }else{
-            setActiveTab(name)
+    const handleVoiceChannelsClick = () => {
+        setShowVoiceChannels(!showVoiceChannels)
+    }
+    const textChannelsClick = () => {
+        setShowTextChannels(!showTextChannels)
+    }
+    const handleMessageSend = () => {
+        setMessages([...messages,message])
+        console.log(messages)
+        setMessage("")
+
+    }
+    const handleChange = (e,{value}) => {
+        setMessage(value)
+    }
+    const handleEnterPress = (e) =>{
+        if(e.key === 'Enter' && !e.shiftKey){
+            handleMessageSend();
         }
     }
+    console.log('MessageBox', <MessageDiv/>)
     return (
       <motion.div initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}} style={{backgroundColor:'#3d3c39'}}>
           <Menu icon='labeled' inverted>
@@ -58,25 +75,31 @@ const Window = (props) => {
                             active={activeItem === 'Friends'}
                             onClick={handleItemClick}
                         />
-                        <Menu.Item>
-                            <Menu.Header>Text Channels</Menu.Header>
-
-                            <Menu.Menu>
-                            <Menu.Item
-                                name='Text Channel 1'
-                                active={activeItem === 'Text Channel 1'}
-                                onClick={handleItemClick}
-                                >Test channel 1<Icon name='hashtag'/></Menu.Item>
-                                <Menu.Item
-                                name="Text Channel"
-                                active={activeItem === 'Text Channel'}
-                                onClick={handleItemClick}
-                                >Test channel 2<Icon name='hashtag'/></Menu.Item>
-                            </Menu.Menu>
-                        </Menu.Item>
+                         <Menu.Item name='Text Channels' onClick={textChannelsClick} active={activeItem === 'Text Channels'}>
+                            <Icon name={ showTextChannels ? 'angle down' : 'angle right'}></Icon><Menu.Header>Text Channels</Menu.Header></Menu.Item>
+                        { showTextChannels ?
+                         <Menu.Item>
+                            
+                         <Menu.Menu>
+                             <Menu.Item
+                             name='Text Channel'
+                             active={activeItem === 'Text Channel'}
+                             onClick={handleItemClick}
+                             >Test channel 1<Icon name='hashtag'/></Menu.Item>
+                             <Menu.Item
+                             name="Text Channel 1"
+                             active={activeItem === 'Text Channel 1'}
+                             onClick={handleItemClick}
+                             >Test channel 2<Icon name='hashtag'/></Menu.Item>
+                             
+                         </Menu.Menu>
+                     </Menu.Item> 
+                     : null
+                       
+}
                         <Menu.Item name='Voice Channels' onClick={handleVoiceChannelsClick} active={activeItem === 'Voice Channels'}>
-                            <Icon name={ activeTab === 'Voice Channels' ? 'angle down' : 'angle right'}></Icon><Menu.Header>Voice Channels</Menu.Header></Menu.Item>
-                        { activeTab === 'Voice Channels' ?
+                            <Icon name={ showVoiceChannels ? 'angle down' : 'angle right'}></Icon><Menu.Header>Voice Channels</Menu.Header></Menu.Item>
+                        { showVoiceChannels ?
                          <Menu.Item>
                             
                          <Menu.Menu>
@@ -101,8 +124,18 @@ const Window = (props) => {
 
                 <Grid.Column stretched width={12}>
                     <Segment style={{padding:'10px', height:'100vh'}} inverted>
-                        This is an stretched grid column. This segment will always match the
-                        tab height
+                        <Segment style={{height:'80%', backgroundColor:'#3d3c39', overflow:'auto'}}>
+                            {messages.map((messageDiv, index) => (
+                                <MessageDiv message={messageDiv} key={index}></MessageDiv>
+                            ))}
+                        </Segment>
+                        <Segment inverted>
+                        <Form style={{padding:'10px'}} onSubmit={handleMessageSend}>
+                            <Form.TextArea onKeyPress={handleEnterPress} name='message' placeholder='Message' style={{backgroundColor:'#3d3c39', color:'white'}} onChange={handleChange} value={message} />
+                            <Button style={{marginTop:'5px'}} floated='right'>Send</Button>
+                        </Form>
+                        </Segment>
+                    
                     </Segment>
                 </Grid.Column>
             </Grid>
