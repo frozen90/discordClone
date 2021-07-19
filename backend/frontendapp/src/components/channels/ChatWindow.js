@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { Container, Button, Checkbox, Form, Message, Segment, Grid, Menu, Label, Input, Icon, Dropdown, TextArea } from 'semantic-ui-react';
+import { Button, Form, Segment, } from 'semantic-ui-react';
 import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
 

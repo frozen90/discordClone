@@ -18,42 +18,6 @@ const MainWindow = (props) => {
         + '/'
     );
 
-    console.log(chatSocket)
-    const [activeItem, setActiveItem] = useState('gamepad')
-    const [showVoiceChannels, setShowVoiceChannels] = useState(false)
-    const [showTextChannels, setShowTextChannels] = useState(false)
-    const [message, setMessage] = useState("")
-    const [messages, setMessages] = useState([])
-    const messagesEndRef = useRef(null)
-    const regex = /[a-zA-Z]/;
-    const handleItemClick = (e, { name }) => {
-        setActiveItem(name)
-    }
-    const handleVoiceChannelsClick = () => {
-        setShowVoiceChannels(!showVoiceChannels)
-    }
-    const textChannelsClick = () => {
-        setShowTextChannels(!showTextChannels)
-    }
-    const handleMessageSend = () => {
-        setMessages([...messages, message])
-        setMessage("")
-
-    }
-    const handleChange = (e, { value }) => {
-        setMessage(value)
-    }
-    const handleEnterPress = (e) => {
-        console.log("message here,", message)
-        if (message === "") {
-            console.log("TRUE")
-        } else {
-            if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
-                handleMessageSend();
-            }
-        }
-
-    }
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39' }}>
             <RoomsMenu/>

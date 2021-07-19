@@ -15,3 +15,7 @@ export const STAFF = 'STAFF';
 export const PRODUCT_LOADING = 'PRODUCT_LOADING';
 export const FIND_PRODUCTS = 'FIND_PRODUCTS';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+
+
+//ROOMS DISPATCH
+export const SELECT_ROOM = 'SELECT_ROOM'
