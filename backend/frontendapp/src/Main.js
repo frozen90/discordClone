@@ -7,7 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import Login from './components/Login';
-import Window from './components/window/Window'
+import MainWindow from './components/window/MainWindow';
 
 
 
@@ -16,7 +16,7 @@ const Main = () => {
     return (
         <Router>
             <Switch>
-                <Route path="">{ isAuthenticated ? <Window/> : <Login/> }</Route>
+                <Route path="">{ isAuthenticated ? <MainWindow/> : <Login/> }</Route>
             </Switch>
         </Router>
     )

@@ -19,8 +19,8 @@ const MessageDiv = ({message}) => {
               </Comment.Metadata >
                 <Comment.Text  style={{color:'white', marginLeft:'45px', width:'65vw'}}>{message}</Comment.Text>
             </Comment.Content>
-        </Comment>
-      </Comment.Group>
+          </Comment>
+        </Comment.Group>
         </Segment>
       </motion.div>
     );
