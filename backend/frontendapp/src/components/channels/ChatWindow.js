@@ -6,7 +6,6 @@ import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
 
 const ChatWindow = (props) => {
-    const roomName = useSelector(state => (state.rooms.mainRooms.roomName))
     const chatRoomName = useSelector(state => (state.rooms.chatRoom.channelName))
     const [chatSocket, setChatSocket] = useState( new WebSocket(
         'ws://'
@@ -15,6 +14,14 @@ const ChatWindow = (props) => {
         + chatRoomName
         + '/'
     ))
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        document.querySelector('#chat-log').value += (data.message + '\n');
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
     const messagesEndRef = useRef(null)
@@ -32,6 +39,9 @@ const ChatWindow = (props) => {
         } else {
             if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
                 handleMessageSend();
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
             }
         }
 
@@ -60,7 +70,7 @@ const ChatWindow = (props) => {
                 </Segment>
                 <Segment inverted>
                     <Form style={{ padding: '10px' }} onSubmit={handleMessageSend}>
-                        <Form.TextArea onKeyPress={handleEnterPress} name='message' placeholder='Message' style={{ backgroundColor: '#3d3c39', color: 'white' }} onChange={handleChange} value={message} />
+                        <Form.TextArea onKeyPress={handleEnterPress} name='#chat-message-input' placeholder='Message' style={{ backgroundColor: '#3d3c39', color: 'white' }} onChange={handleChange} value={message} />
                         <Button style={{ marginTop: '5px' }} floated='right'>Send</Button>
                     </Form>
                 </Segment>
