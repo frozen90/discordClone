@@ -18,4 +18,5 @@ export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 
 
 //ROOMS DISPATCH
-export const SELECT_ROOM = 'SELECT_ROOM'
+export const SELECT_ROOM = 'SELECT_ROOM';
+export const ENTER_CHAT_ROOM = 'ENTER_CHAT_ROOM';

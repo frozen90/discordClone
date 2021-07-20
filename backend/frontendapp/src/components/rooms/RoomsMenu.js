@@ -4,20 +4,17 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { Menu, Label, Icon,} from 'semantic-ui-react';
 import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
+import { SELECT_ROOM } from '../../actions/types';
 
 const RoomsMenu = (props) =>{
-    let roomName = 'TestChannel'
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/chat/'
-        + roomName
-        + '/'
-    );
-
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch({type:SELECT_ROOM, data:activeItem})
+    },[])
     const [activeItem, setActiveItem] = useState('gamepad')
     const handleItemClick = (e, { name }) => {
         setActiveItem(name)
+        dispatch({type:SELECT_ROOM, data:name})
     }
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39' }}>

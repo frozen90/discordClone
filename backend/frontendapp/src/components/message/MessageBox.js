@@ -3,7 +3,6 @@ import { Segment, Comment, Icon } from 'semantic-ui-react';
 import { motion } from "framer-motion";
 
 const MessageDiv = ({message}) => {
-    console.log(message)
     const [date, setDate] = useState(new Date())
     const today = new Date()
     return (

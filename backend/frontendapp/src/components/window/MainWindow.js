@@ -9,15 +9,6 @@ import ChannelsNav from '../channels/ChannelsNav';
 import RoomsMenu from '../rooms/RoomsMenu';
 
 const MainWindow = (props) => {
-    let roomName = 'TestChannel'
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/chat/'
-        + roomName
-        + '/'
-    );
-
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39' }}>
             <RoomsMenu/>

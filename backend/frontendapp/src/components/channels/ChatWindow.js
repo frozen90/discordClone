@@ -6,14 +6,15 @@ import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
 
 const ChatWindow = (props) => {
-    let roomName = 'TestChannel'
-    const chatSocket = new WebSocket(
+    const roomName = useSelector(state => (state.rooms.mainRooms.roomName))
+    const chatRoomName = useSelector(state => (state.rooms.chatRoom.channelName))
+    const [chatSocket, setChatSocket] = useState( new WebSocket(
         'ws://'
         + window.location.host
         + '/ws/chat/'
-        + roomName
+        + chatRoomName
         + '/'
-    );
+    ))
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
     const messagesEndRef = useRef(null)
@@ -27,9 +28,7 @@ const ChatWindow = (props) => {
         setMessage(value)
     }
     const handleEnterPress = (e) => {
-        console.log("message here,", message)
         if (message === "") {
-            console.log("TRUE")
         } else {
             if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
                 handleMessageSend();
@@ -41,7 +40,15 @@ const ChatWindow = (props) => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
     useEffect(scrollToBottom, [messages]);
-    console.log('MessageBox', <MessageDiv />)
+    useEffect(()=>{
+        setChatSocket( new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + chatRoomName
+            + '/'
+        ))
+    },[chatRoomName])
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding:'10px' }}>
             <Segment style={{ padding: '10px', height: '100vh' }} inverted>

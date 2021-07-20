@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Menu, Input, Icon } from 'semantic-ui-react';
 import { motion } from "framer-motion";
+import { ENTER_CHAT_ROOM } from '../../actions/types';
 
 const ChannelsNav = (props) => {
-    let roomName = 'TestChannel'
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/chat/'
-        + roomName
-        + '/'
-    );
-
-    const [activeItem, setActiveItem] = useState('gamepad')
+    const dispatch = useDispatch();
+    const roomName = useSelector(state => (state.rooms.mainRooms.roomName))
+    const [textChannels,setTextChannels] = useState([{id:1,name:'Test Text Channel 1'},{id:2,name:'Test Text Channel 2'},{id:3,name:'Test Text Channel 3'}])
+    const voiceChannels = [{id:1,name:'Test Voice Channel 1'},{id:2,name:'Test Voice Channel 2'},{id:3,name:'Test Voice Channel 3'}]
+    const [activeItem, setActiveItem] = useState('Friends')
     const [showVoiceChannels, setShowVoiceChannels] = useState(false)
     const [showTextChannels, setShowTextChannels] = useState(false)
     const handleItemClick = (e,{name}) => {
         setActiveItem(name)
+        dispatch({type:ENTER_CHAT_ROOM, data:name})
     }
     const handleVoiceChannelsClick = () => {
         setShowVoiceChannels(!showVoiceChannels)
@@ -26,12 +23,15 @@ const ChannelsNav = (props) => {
     const textChannelsClick = () => {
         setShowTextChannels(!showTextChannels)
     }
-    
+    useEffect(()=>{
+        // place to fetch text and voice channels for room.
+        setTextChannels([{id:1,name:'Test Text Channel 1'+roomName},{id:2,name:'Test Text Channel 2'+roomName},{id:3,name:'Test Text Channel 3'+roomName}])
+    },[roomName])
     return (
       <motion.div initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}} style={{backgroundColor:'#3d3c39', padding:'10px'}}>
           
         <Menu fluid inverted pointing vertical style={{padding:'10px', height:'100vh'}}>
-        <Menu.Header style={{color:'white'}}>Channel Name</Menu.Header>
+        <Menu.Header style={{color:'white'}}>{roomName}</Menu.Header>
             <Menu.Item>
                 <Input placeholder='Search...' />
             </Menu.Item>
@@ -46,18 +46,14 @@ const ChannelsNav = (props) => {
             <Menu.Item>
                 
             <Menu.Menu>
+            {textChannels.map((channel, index) => (
                 <Menu.Item
-                    name='Text Channel'
-                    active={activeItem === 'Text Channel'}
+                    key={index}
+                    name={channel.name}
+                    active={activeItem === channel.name}
                     onClick={handleItemClick}
-                    >Test channel 1<Icon name='hashtag'/>
-                </Menu.Item>
-                    <Menu.Item
-                    name="Text Channel 1"
-                    active={activeItem === 'Text Channel 1'}
-                    onClick={handleItemClick}
-                    >Test channel 2<Icon name='hashtag'/>
-                </Menu.Item>
+                    >{channel.name}<Icon name='hashtag'/>
+                </Menu.Item>))}
                     
             </Menu.Menu>
             </Menu.Item> 
@@ -70,16 +66,14 @@ const ChannelsNav = (props) => {
                 <Menu.Item>
                 
                 <Menu.Menu>
+                {voiceChannels.map((channel, index) => (
                     <Menu.Item
-                    name='Voice Channel'
-                    active={activeItem === 'Voice Channel'}
-                    onClick={handleItemClick}
-                    >Test channel 1<Icon name='volume up'/></Menu.Item>
-                    <Menu.Item
-                    name="Voice Channel 1"
-                    active={activeItem === 'Voice Channel 1'}
-                    onClick={handleItemClick}
-                    >Test channel 2<Icon name='volume up'/></Menu.Item>
+                        key={index}
+                        name={channel.name}
+                        active={activeItem === channel.name}
+                        onClick={handleItemClick}
+                        >{channel.name}<Icon name='hashtag'/>
+                    </Menu.Item>))}
                     
                 </Menu.Menu>
             </Menu.Item> 
