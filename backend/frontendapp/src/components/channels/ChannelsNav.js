@@ -28,9 +28,9 @@ const ChannelsNav = (props) => {
         setTextChannels([{id:1,name:'Test Text Channel 1'+roomName},{id:2,name:'Test Text Channel 2'+roomName},{id:3,name:'Test Text Channel 3'+roomName}])
     },[roomName])
     return (
-      <motion.div initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}} style={{backgroundColor:'#3d3c39', padding:'10px'}}>
+      <motion.div initial={{opacity: 0}} animate={{ opacity: 1}} exit={{opacity:0}} style={{backgroundColor:'#3d3c39', padding:'10px',minHeight:'70%'}}>
           
-        <Menu fluid inverted pointing vertical style={{padding:'10px', height:'100vh'}}>
+        <Menu fluid inverted pointing vertical style={{padding:'10px', }}>
         <Menu.Header style={{color:'white'}}>{roomName}</Menu.Header>
             <Menu.Item>
                 <Input placeholder='Search...' />

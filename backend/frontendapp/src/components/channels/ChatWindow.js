@@ -61,8 +61,8 @@ const ChatWindow = (props) => {
     },[chatRoomName])
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding:'10px' }}>
-            <Segment style={{ padding: '10px', height: '100vh' }} inverted>
-                <Segment style={{ height: '80%', backgroundColor: '#3d3c39', overflow: 'auto' }}>
+            <Segment style={{ padding: '10px'}} inverted>
+                <Segment style={{ minHeight: '70%', backgroundColor: '#3d3c39', overflow: 'auto' }}>
                     {messages.map((messageDiv, index) => (
                         <MessageDiv message={messageDiv} key={index}></MessageDiv>
                     ))}
