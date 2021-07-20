@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'rest_framework.authtoken',
     'corsheaders',
-    'knox'
+    'knox',
+    'channels',
 ]
 
 REST_FRAMEWORK = {
@@ -82,7 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
+ASGI_APPLICATION = "backend.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
