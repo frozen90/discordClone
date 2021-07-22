@@ -6,17 +6,24 @@ import MessageDiv from '../message/MessageBox';
 import { motion } from "framer-motion";
 
 const ChatWindow = (props) => {
+    const user = useSelector(state => (state.auth.user))
+    console.log(user)
     const chatRoomName = useSelector(state => (state.rooms.chatRoom.channelName))
+    const roomName = useSelector(state => (state.rooms.mainRooms.roomName))
     const [chatSocket, setChatSocket] = useState( new WebSocket(
         'ws://'
         + window.location.host
         + '/ws/chat/'
+        + roomName
+        + '/'
         + chatRoomName
         + '/'
     ))
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        setMessages([...messages, data.message]);
+        console.log(data)
+
+        setMessages([...messages, {message:data.message, username:data.username}]);
         setMessage("");
     };
 
@@ -29,7 +36,8 @@ const ChatWindow = (props) => {
     const regex = /[a-zA-Z]/;
     const handleMessageSend = () => {
         chatSocket.send(JSON.stringify({
-            'message': message
+            'message': message,
+            'userName': user.username
         }));
     }
     const handleChange = (e, { value }) => {
@@ -41,7 +49,8 @@ const ChatWindow = (props) => {
             if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
                 // handleMessageSend();
                 chatSocket.send(JSON.stringify({
-                    'message': message
+                    'message': message,
+                    'userName': user.username
                 }));
             }
         }
@@ -56,6 +65,8 @@ const ChatWindow = (props) => {
             'ws://'
             + window.location.host
             + '/ws/chat/'
+            + roomName
+            + '/'
             + chatRoomName
             + '/'
         ))
@@ -64,8 +75,8 @@ const ChatWindow = (props) => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding:'10px' }}>
             <Segment style={{ padding: '10px'}} inverted>
                 <Segment className="chatWindow" style={{backgroundColor: '#3d3c39'}}>
-                    {messages.map((messageDiv, index) => (
-                        <MessageDiv message={messageDiv} key={index}></MessageDiv>
+                    {messages.map((messageData, index) => (
+                        <MessageDiv message={messageData.message} username={messageData.username} key={index}></MessageDiv>
                     ))}
                     <div ref={messagesEndRef} />
                 </Segment>

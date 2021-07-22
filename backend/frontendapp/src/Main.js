@@ -12,7 +12,7 @@ import MainWindow from './components/window/MainWindow';
 
 
 const Main = () => {
-    const isAuthenticated = true //useSelector(state => state.auth.isAuthenticated)
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     return (
         <Router>
             <Switch>

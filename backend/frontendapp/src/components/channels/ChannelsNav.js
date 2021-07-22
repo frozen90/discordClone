@@ -9,9 +9,9 @@ const ChannelsNav = (props) => {
     const dispatch = useDispatch();
     const roomName = useSelector(state => (state.rooms.mainRooms.roomName))
     const [friendsList, setFriendsList] = useState([])
-    const [textChannels, setTextChannels] = useState([{ id: 1, name: 'Test Text Channel 1' }, { id: 2, name: 'Test Text Channel 2' }, { id: 3, name: 'Test Text Channel 3' }])
-    const [voiceChannels, setVoiceChannels] = useState([{ id: 1, name: 'Test Voice Channel 1' }, { id: 2, name: 'Test Voice Channel 2' }, { id: 3, name: 'Test Voice Channel 3' }])
-    const [activeItem, setActiveItem] = useState('Friends')
+    const [textChannels, setTextChannels] = useState([{ id: 1, name: 'general' }])
+    const [voiceChannels, setVoiceChannels] = useState([{ id: 1, name: 'General' }])
+    const [activeItem, setActiveItem] = useState('general')
     const [showVoiceChannels, setShowVoiceChannels] = useState(false)
     const [showTextChannels, setShowTextChannels] = useState(false)
     const [showFriendsPanel, setShowFriendsPanel] = useState(false)
@@ -28,10 +28,6 @@ const ChannelsNav = (props) => {
     const handleFriendsClick = () => {
         setShowFriendsPanel(!showFriendsPanel)
     }
-    useEffect(() => {
-        // place to fetch text and voice channels for room.
-        setTextChannels([{ id: 1, name: 'Test Text Channel 1' + roomName }, { id: 2, name: 'Test Text Channel 2' + roomName }, { id: 3, name: 'Test Text Channel 3' + roomName }])
-    }, [roomName])
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding: '10px', minHeight: '70%' }}>
 

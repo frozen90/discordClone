@@ -5,10 +5,11 @@ from channels.generic.websocket import WebsocketConsumer
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.clean_group_name = self.room_name.replace(" ", "-")
+        self.channel_room_name = self.scope['url_route']['kwargs']['channel_name']
+        self.main_room_name = self.scope['url_route']['kwargs']['room_name']
+        self.clean_group_name = self.channel_room_name.replace(" ", "-")
         self.room_group_name = 'chat_%s' % self.clean_group_name
-        print(self.room_group_name)
+        print(self.room_group_name, self.main_room_name)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -29,21 +30,24 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
+        userName = text_data_json['userName']
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'message': message,
+                'userName': userName,
             }
         )
 
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
-
+        username = event['userName']
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message
+            'message': message,
+            'username': username
         }))
