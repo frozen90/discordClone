@@ -16,7 +16,7 @@ const ChatWindow = (props) => {
     ))
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        document.querySelector('#chat-log').value += (data.message + '\n');
+        console.log(data.message)
     };
 
     chatSocket.onclose = function(e) {
