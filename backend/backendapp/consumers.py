@@ -6,8 +6,8 @@ from channels.generic.websocket import WebsocketConsumer
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.proper_room_name = self.room_name.replace(" ", "-")
-        self.room_group_name = 'chat_%s' % self.proper_room_name
+        self.clean_group_name = self.room_name.replace(" ", "-")
+        self.room_group_name = 'chat_%s' % self.clean_group_name
         print(self.room_group_name)
 
         # Join room group
