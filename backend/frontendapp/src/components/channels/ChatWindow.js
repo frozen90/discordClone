@@ -16,7 +16,8 @@ const ChatWindow = (props) => {
     ))
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        console.log(data.message)
+        setMessages([...messages, data.message]);
+        setMessage("");
     };
 
     chatSocket.onclose = function(e) {
@@ -27,9 +28,9 @@ const ChatWindow = (props) => {
     const messagesEndRef = useRef(null)
     const regex = /[a-zA-Z]/;
     const handleMessageSend = () => {
-        setMessages([...messages, message])
-        setMessage("")
-
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
     }
     const handleChange = (e, { value }) => {
         setMessage(value)
@@ -38,7 +39,7 @@ const ChatWindow = (props) => {
         if (message === "") {
         } else {
             if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
-                handleMessageSend();
+                // handleMessageSend();
                 chatSocket.send(JSON.stringify({
                     'message': message
                 }));
@@ -62,7 +63,7 @@ const ChatWindow = (props) => {
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding:'10px' }}>
             <Segment style={{ padding: '10px'}} inverted>
-                <Segment style={{ minHeight: '70%', backgroundColor: '#3d3c39', overflow: 'auto' }}>
+                <Segment style={{ minHeight: '70%', maxHeight:'70vh', backgroundColor: '#3d3c39', overflowY: 'scroll' }}>
                     {messages.map((messageDiv, index) => (
                         <MessageDiv message={messageDiv} key={index}></MessageDiv>
                     ))}
