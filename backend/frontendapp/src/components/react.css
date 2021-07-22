@@ -1,3 +1,9 @@
+
+.chatWindow{
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
 .tableFont{
     font-size: 25px;
 }
@@ -87,5 +93,9 @@
 .stackable.grid:before {
     width: 100%;
     left: 0em;
+}
+.chatWindow{
+    min-height: 30vh;
+    max-height: 30vh;
 }
 }

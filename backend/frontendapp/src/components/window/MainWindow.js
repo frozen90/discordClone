@@ -12,7 +12,7 @@ const MainWindow = (props) => {
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39' }}>
             <RoomsMenu/>
-            <Grid style={{minHeight:'100vh'}}>
+            <Grid style={{minHeight:'100vh'}} stackable>
                 <Grid.Column width={4}>
                     <ChannelsNav/>
                 </Grid.Column>
