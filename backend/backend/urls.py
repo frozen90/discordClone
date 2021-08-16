@@ -28,7 +28,7 @@ router = routers.DefaultRouter()
 # router.register(r'users', backendapp_views.UserViewSet)
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/users/', UserList.as_view()),
     path('api/current_user/',current_user),
     
