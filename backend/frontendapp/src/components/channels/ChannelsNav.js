@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { Menu, Input, Icon } from 'semantic-ui-react';
+import { Menu, Input, Icon, Dropdown } from 'semantic-ui-react';
 import { motion } from "framer-motion";
 import { ENTER_CHAT_ROOM } from '../../actions/types';
 
@@ -31,11 +31,8 @@ const ChannelsNav = (props) => {
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding: '10px', minHeight: '70%' }}>
 
-            <Menu fluid inverted pointing vertical style={{ padding: '10px', }}>
-                <Menu.Header style={{ color: 'white' }}>{roomName}</Menu.Header>
-                <Menu.Item>
-                    <Input placeholder='Search...' />
-                </Menu.Item>
+            <Menu fluid inverted pointing vertical style={{padding:'15px'}}>
+                <Menu.Header style={{ color: 'white', padding:'5px',borderBottom:'5px'}}>{roomName.toUpperCase()}</Menu.Header>
                 <Menu.Item name='Friends' onClick={handleFriendsClick} active={activeItem === 'Friends'}>
                     <Icon name={showFriendsPanel ? 'angle down' : 'angle right'}></Icon><Menu.Header>Friends</Menu.Header></Menu.Item>
                 {showFriendsPanel ?

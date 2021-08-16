@@ -66,11 +66,11 @@ const ChatWindow = (props) => {
                 'message':''
             }));
             if (e.key === 'Enter' && !e.shiftKey && regex.test(message)) {
+                console.log("I AM HERE")
                 // handleMessageSend();
                 chatSocket.send(JSON.stringify({
                     'message': message,
                     'userName': user.username,
-                    'typing':'sent',
                 }));
             }
         }
@@ -90,6 +90,7 @@ const ChatWindow = (props) => {
             + chatRoomName
             + '/'
         ))
+    setMessages([])
     },[chatRoomName])
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ backgroundColor: '#3d3c39', padding:'10px' }}>
